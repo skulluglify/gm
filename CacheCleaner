@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
 
-for x in `find . -type d | grep -Ei '(\.cache|\.tmp|\_\_pycache\_\_)$'`; do
+for x in `find . -type d | grep -Ei '(\.tmp|\.cache|\_\_pycache\_\_)$'`; do
     rm -rf "$x"
 done

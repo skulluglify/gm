@@ -1,0 +1,9 @@
+.tmp
+.cache
+
+__pycache__
+
+orion/*.c
+orion/*.so
+orion/*/*.c
+orion/*/*.so

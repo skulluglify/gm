@@ -1,4 +1,4 @@
 #! /usr/bin/env python3
 
-from extras.runner import *;
+from extras.Runner import *;
 from extras.strings import *;
