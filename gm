@@ -1,0 +1,7 @@
+#! /usr/bin/env python3
+
+import orion;
+from orion.extras import *;
+
+print(run("python simpleput.py", b"ahmad asy syafiq"));
+print(run("cat", b"ahmad asy syafiq"));
