@@ -26,7 +26,7 @@ print(rank_column_auto(b));
 c: np.array = np.array([
 [2,1,9],
 [3,4,0]
-], dtype=np.uint32);
+], dtype=np.int32);
 
 print(c);
 
@@ -44,3 +44,15 @@ d: np.array = np.array([
 print(d);
 
 print(rank_row_auto(d));
+
+
+c: np.array = np.array([
+[ 1, 2,  3  ],
+[ 2, 4,  6  ],
+[ 4, 8,  12 ],
+[ 8, 16, 24 ]
+], dtype=np.int32);
+
+print(c);
+
+print(rank_column_auto(c));
