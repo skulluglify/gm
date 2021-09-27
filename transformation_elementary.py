@@ -1,58 +1,90 @@
 #! /usr/bin/env python3
 
 import orion;
-from orion.vector.concept import *;
+from orion.vector.concept_docs import *;
 
-a: np.array = np.array([
-    [1,2,3,1],
-    [2,3,1,4],
-    [1,4,2,3],
-    [1,3,-3,5]
-], dtype=np.int32)
+rotate_pos
+switch_column_pos
+switch_row_pos
+mutate_column_pos
+mutate_row_pos
+revoke_column_pos
+revoke_row_pos
+rank_column_auto
+rank_row_auto
+# 
+# m = np.array([
+    # [1,2,3],
+    # [4,5,6],
+    # [7,8,9]
+# ])
+# 
+# m = switch_row_pos(m, 0, 2)
+# 
+# m = mutate_row_pos(m, (1,2), (2,3))
+# print(m)
+# 
+# m = revoke_row_pos(m, (1,2), (2,3))
+# print(m)
+# 
+# m = switch_row_pos(m, 2, 1)
+# print(m)
+# 
+# print(rank_column_auto(m))
+# print(rank_row_auto(m))
+# 
+# print()
 
-print(a);
+m = np.array([
+    [4,2,-1],
+    [3,0,2],
+    [8,6,1]
+])
 
-print(rank_column_auto(a));
+print(1, m, end="\n\n")
 
-b: np.array = np.array([
-[-1,6,2,-3],
-[1/3,-2,-2/3,1]
-], dtype=np.float32);
+print("H1 2")
+print(switch_column_pos(m, 0, 1))
 
-print(b);
+print("K1 3")
+print(switch_row_pos(m, 0, 2))
 
-print(rank_column_auto(b));
+print("H2^-2")
+print(mutate_column_pos(m, (1, 0), (1, -2)))
 
-c: np.array = np.array([
-[2,1,9],
-[3,4,0]
-], dtype=np.int32);
+print("K3^2")
+print(mutate_row_pos(m, (2, 0), (2, 2)))
 
-print(c);
+print("H3 1^1")
+print(mutate_column_pos(m, (2, 1), (0, 1)))
 
-print(rank_column_auto(c));
+print("K2 1^2")
+print(mutate_row_pos(m, (1, 1), (0, 2)))
 
-## row test
+print("H2^1 3^2")
+print(mutate_column_pos(m, (1, 1), (2, 2)))
 
-d: np.array = np.array([
-[1,2,3,1],
-[2,3,1,4],
-[1,4,2,3],
-[1,3,-3,5],
-], dtype=np.int32);
+print()
 
-print(d);
+m = np.array([
+    [4,2,-1],
+    [3,0,2],
+    [8,6,1]
+])
 
-print(rank_row_auto(d));
+print(2, m, end="\n\n")
 
+print("H3 1^1")
+print(revoke_column_pos(m, (2, 1), (0,1)))
 
-c: np.array = np.array([
-[ 1, 2,  3  ],
-[ 2, 4,  6  ],
-[ 4, 8,  12 ],
-[ 8, 16, 24 ]
-], dtype=np.int32);
+print()
 
-print(c);
+m = np.array([
+    [2,3,1],
+    [2,1,2],
+    [4,4,3]
+])
 
-print(rank_column_auto(c));
+print(3, m, end="\n\n")
+
+print(rank_column_auto(m))

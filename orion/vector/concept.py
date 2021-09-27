@@ -13,15 +13,18 @@ def _zip(array: np.array) -> np.array:
             arrayzeros[row][column] = array[column][row];
     return arrayzeros;
 
-def change_pos(array: np.array) -> np.array:
+def rotate_pos(array: np.array) -> np.array:
     return _zip(array);
 
-def switch_pos(array: np.array, a: int, b: int) -> np.array:
+def switch_column_pos(array: np.array, a: int, b: int) -> np.array:
     arraycopy: np.array = array.copy();
     arraycopy[a], arraycopy[b] = array[b], array[a];
     return arraycopy;
 
-def mutate_pos(array: np.array, a: tuple, b: tuple) -> np.array:
+def switch_row_pos(array: np.array, a: int, b: int) -> np.array:
+    return rotate_pos(switch_column_pos(rotate_pos(array), a, b));
+
+def mutate_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy: np.array = array.copy();
     after: typing.Iterator = iter([*a, *a]);
     before: typing.Iterator = iter([*b, *b]);
@@ -30,7 +33,10 @@ def mutate_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy[next(after)] = a + b;
     return arraycopy;
 
-def revoke_pos(array: np.array, a: tuple, b: tuple) -> np.array:
+def mutate_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:
+    return rotate_pos(mutate_column_pos(rotate_pos(array), a, b));
+
+def revoke_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy: np.array = array.copy();
     after: typing.Iterator = iter([*a, *a]);
     before: typing.Iterator = iter([*b, *b]);
@@ -40,7 +46,10 @@ def revoke_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy[next(after)] = m;
     return arraycopy;
 
-def search_pivot(array: np.ndarray) -> any:
+def revoke_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:
+    return rotate_pos(revoke_column_pos(rotate_pos(array), a, b));
+
+def get_pivot(array: np.ndarray) -> any:
     i: any;
     for i in array:
         if i != 0: return i;
@@ -55,26 +64,26 @@ def rank_column_auto(array: np.array) -> int:
     pivot: any;
     column: int;
     m: np.ndarray;
-    arraycopy: np.array = np.array(array, dtype=np.complex128);
+    arraycopy: np.array = np.array(array, dtype=np.complex64);
     shape: tuple = arraycopy.shape;
     for i in range(shape[0], -1, -1):
         pivot: any = None;
         for j in range(i):
             k: int = shape[0] -i;
             if not pivot:
-                pivot: any = search_pivot(arraycopy[k]);
+                pivot: any = get_pivot(arraycopy[k]);
                 continue; 
             column: int = k + j;
-            b: any = search_pivot(arraycopy[column]);
-            if not isinstance(b, complex):
+            b: any = get_pivot(arraycopy[column]);
+            if not isinstance(b, np.complex64):
                 print("has become a problem here!");
                 continue;
             a: any = b / pivot * -1;
-            arraycopy: np.array = mutate_pos(arraycopy, (column, 1), (k, a));
+            arraycopy: np.array = mutate_column_pos(arraycopy, (column, 1), (k, a));
     i: int = 0;
     for m in arraycopy:
         i: int = i + 1 if sum(m) != 0 else i;
     return i;
 
 def rank_row_auto (array: np.array) -> int:
-    return rank_column_auto(change_pos(array));
+    return rank_column_auto(rotate_pos(array));
