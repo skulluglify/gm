@@ -70,7 +70,7 @@ def rank_column_auto(array: np.array) -> int:
         pivot: any = None;
         for j in range(i):
             k: int = shape[0] -i;
-            if not pivot:
+            if not isinstance(pivot, np.complex64):
                 pivot: any = get_pivot(arraycopy[k]);
                 continue; 
             column: int = k + j;
