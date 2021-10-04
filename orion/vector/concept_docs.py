@@ -37,11 +37,14 @@ def switch_row_pos(array: np.array, a: int, b: int) -> np.array:
 
 def mutate_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy: np.array = array.copy();
-    after: typing.Iterator = iter([*a, *a]);
-    before: typing.Iterator = iter([*b, *b]);
-    a: np.array = array[next(after)] * next(after);
-    b: np.array = array[next(before)] * next(before);
-    arraycopy[next(after)] = a + b;
+    # after: typing.Iterator = iter([*a, *a]);
+    # before: typing.Iterator = iter([*b, *b]);
+    # a: np.array = array[next(after)] * next(after);
+    A: np.array = array[a[0]] * a[1];
+    # b: np.array = array[next(before)] * next(before);
+    B: np.array = array[b[0]] * b[1];
+    # arraycopy[next(after)] = a + b;
+    arraycopy[a[0]] = A + B;
     return arraycopy;
 
 def mutate_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:
@@ -49,12 +52,16 @@ def mutate_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:
 
 def revoke_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy: np.array = array.copy();
-    after: typing.Iterator = iter([*a, *a]);
-    before: typing.Iterator = iter([*b, *b]);
-    m: np.array = array[next(after)];
-    b: np.array = array[next(before)] * next(before);
-    m: np.array = (m - b) / next(after);
-    arraycopy[next(after)] = m;
+    # after: typing.Iterator = iter([*a, *a]);
+    # before: typing.Iterator = iter([*b, *b]);
+    # m: np.array = array[next(after)];
+    m: np.array = array[a[0]];
+    # b: np.array = array[next(before)] * next(before);
+    B: np.array = array[b[0]] * b[1];
+    # m: np.array = (m - b) / next(after);
+    m: np.array = (m - B) / a[1];
+    # arraycopy[next(after)] = m;
+    arraycopy[a[0]] = m;
     return arraycopy;
 
 def revoke_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:

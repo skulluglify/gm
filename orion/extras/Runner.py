@@ -29,6 +29,9 @@ class Runner(object):
 
     def __init__(self, cmds:str, stdin:bytes=b'', **kwargs):
 
+        ## FEATURES
+        # if stdin is io Open, change auto with out tempfile!
+
         self.listen = False;
         self.MAXTIMEOUT = 5;
         self.stdin = stdin;
