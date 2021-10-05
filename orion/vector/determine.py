@@ -18,7 +18,7 @@ def _permute(array: np.array, d: typing.List[int] = [], r: int = 1):
             for m in _permute(array, [*d, x], r + 1):
                 yield m;
 
-class det (object):
+class concept (object):
 
     def permute(array: np.array):
 
@@ -39,4 +39,31 @@ class det (object):
 
         print(t);
 
-        return t;
+        return t, "odd" if t%2 else "even";
+
+    def sarrus_column_auto(array: np.array):
+
+        shape: tuple = array.shape;
+        rows: int = shape[0];
+        columns: int = shape[1];
+
+        R: np.array = np.array([ 1 for i in range(columns)], dtype=array.dtype);
+        L: np.array = np.array([ 1 for i in range(columns)], dtype=array.dtype);
+
+        for row in range(rows):
+            for column in range(columns):
+                p: int = column;
+
+                # c: int = (row + column) % columns;
+                column: int = (row + column) % columns;
+                # R[p] = R[p] * array[row][c];
+                R[p] = R[p] * array[row][column];
+
+                # c: int = (row + column) % columns;
+                # L[p] = L[p] * array[rows - row - 1][c];
+                L[p] = L[p] * array[rows - row - 1][column];
+
+        R: int = sum(R);
+        L: int = sum(map(lambda x: -x, L));
+
+        return R + L;

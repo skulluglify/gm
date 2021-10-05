@@ -88,3 +88,12 @@ m = np.array([
 print(3, m, end="\n\n")
 
 print(rank_column_auto(m))
+
+
+m = np.array([
+    [0,1,4],
+    [2,1,1],
+    [0,0,1]
+])
+
+print(mutate_column_pos(m, (0,1), (2,-2)))
