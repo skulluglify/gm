@@ -48,6 +48,11 @@ def inverse(array: np.array):
 
 def sarrus_column_auto(array: np.array):
 
+    ## debug
+    array: np.array = np.array([*map(lambda x: [*map(lambda c: c.real, x)],array)], dtype=np.int64);
+
+    print(array);
+
     shape: tuple = array.shape;
     rows: int = shape[0];
     columns: int = shape[1];
@@ -55,15 +60,25 @@ def sarrus_column_auto(array: np.array):
     R: np.array = np.array([ 1 for i in range(columns)], dtype=array.dtype);
     L: np.array = np.array([ 1 for i in range(columns)], dtype=array.dtype);
 
-    for row in range(rows):
-        for column in range(columns):
+    if shape == (2, 2):
+        R[0] = R[0] * array[0][0];
+        R[0] = R[0] * array[1][1];
+        R[1] = 0;
+        L[0] = L[0] * array[0][1];
+        L[0] = L[0] * array[1][0];
+        L[1] = 0;
+    else:
+        for row in range(rows):
+            for column in range(columns):
 
-            p: int = (row + column) % columns;
+                p: int = (row + column) % columns;
 
-            R[column] = R[column] * array[row][p];
+                R[column] = R[column] * array[row][p];
 
-            L[column] = L[column] * array[rows - row - 1][p];
-
+                L[column] = L[column] * array[rows - row - 1][p];
+    
+    print(R, L);
+    
     R: int = sum(R);
     L: int = sum(map(lambda x: -x, L));
 
@@ -118,6 +133,8 @@ def cofactor_column_auto(array: np.array):
         print();
         
         sarr: int = sarrus_column_auto(m);
+
+        print();
         
         print(m, sarr, "*", values[i], "=", sarr * values[i]);
         

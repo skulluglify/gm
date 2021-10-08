@@ -42,4 +42,10 @@ a: np.array = np.array([
     [5, 6, 1, 4]
 ], dtype=np.complex64);
 
+# a: np.array = np.array([
+#     [3, 2, 5],
+#     [4, 6, 7],
+#     [2, 9, 2]
+# ], dtype=np.complex64);
+
 print(cofactor_column_auto(a));
