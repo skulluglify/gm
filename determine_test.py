@@ -8,7 +8,7 @@ a: np.array = np.array([
     1, 2, 3
 ], dtype=np.uint32);
 
-print(concept.permute(a));
+print(permute(a));
 
 b: np.array = np.array([
     6, 4, 5, 3, 1, 2
@@ -20,7 +20,7 @@ b: np.array = np.array([
 # 5 > 3 1 2 > 3
 # 3 >  1 2 > 2
 # 1 > 2 > 0
-print(concept.inverse(b));
+print(inverse(b));
 
 # a: np.array = np.array([
     # [2, 7],
@@ -33,4 +33,13 @@ a: np.array = np.array([
     [7, -8, 9]
 ], dtype=np.complex64);
 
-print(concept.sarrus_column_auto(orion.vector.concept.rotate_pos(a)));
+print(sarrus_column_auto(orion.vector.concept.rotate_pos(a)));
+
+a: np.array = np.array([
+    [2, 1, 6, 7],
+    [3, 2, 4, 5],
+    [4, 4, 2, 3],
+    [5, 6, 1, 4]
+], dtype=np.complex64);
+
+print(cofactor_column_auto(a));
