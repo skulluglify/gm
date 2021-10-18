@@ -15,9 +15,11 @@ def _print_array_complex(array: np.array, *args, **kwargs):
     print(arraycopy, *args, **kwargs);
 
 def _zip(array: np.array) -> np.array:
+    ## FATAL: just support only 2d array!
     row: int;
     column: int;
-    shape: tuple = tuple( array.shape[i-1] for i in range(len(array.shape),0,-1) );
+    # shape: tuple = tuple( array.shape[i-1] for i in range(len(array.shape),0,-1) );
+    shape: tuple = (array.shape[1], array.shape[0]);
     arrayzeros: np.array = np.zeros([*shape], dtype=array.dtype);
     for row in range(shape[0]):
         for column in range(shape[1]):
