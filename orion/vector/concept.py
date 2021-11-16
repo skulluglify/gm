@@ -13,7 +13,7 @@ def _zip(array: np.array) -> np.array:
             arrayzeros[row][column] = array[column][row];
     return arrayzeros;
 
-def rotate_pos(array: np.array) -> np.array:
+def transpose(array: np.array) -> np.array:
     return _zip(array);
 
 def switch_column_pos(array: np.array, a: int, b: int) -> np.array:
@@ -22,7 +22,7 @@ def switch_column_pos(array: np.array, a: int, b: int) -> np.array:
     return arraycopy;
 
 def switch_row_pos(array: np.array, a: int, b: int) -> np.array:
-    return rotate_pos(switch_column_pos(rotate_pos(array), a, b));
+    return transpose(switch_column_pos(transpose(array), a, b));
 
 def mutate_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy: np.array = array.copy();
@@ -37,7 +37,7 @@ def mutate_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     return arraycopy;
 
 def mutate_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:
-    return rotate_pos(mutate_column_pos(rotate_pos(array), a, b));
+    return transpose(mutate_column_pos(transpose(array), a, b));
 
 def revoke_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     arraycopy: np.array = array.copy();
@@ -54,7 +54,7 @@ def revoke_column_pos(array: np.array, a: tuple, b: tuple) -> np.array:
     return arraycopy;
 
 def revoke_row_pos(array: np.array, a: tuple, b: tuple) -> np.array:
-    return rotate_pos(revoke_column_pos(rotate_pos(array), a, b));
+    return transpose(revoke_column_pos(transpose(array), a, b));
 
 def get_pivot(array: np.ndarray) -> any:
     i: any;
@@ -93,4 +93,4 @@ def rank_column_auto(array: np.array) -> int:
     return i;
 
 def rank_row_auto (array: np.array) -> int:
-    return rank_column_auto(rotate_pos(array));
+    return rank_column_auto(transpose(array));

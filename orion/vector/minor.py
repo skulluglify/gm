@@ -5,7 +5,7 @@ import numpy as np;
 from vector.determine \
 import sarrus_column_auto;
 from vector.concept \
-import rotate_pos;
+import transpose;
 
 def cofactor_minor (array: np.array):
 
@@ -50,10 +50,12 @@ def cofactor_minor (array: np.array):
         mp, pos, child = node;
         row, column = pos;
 
-
-        print("+" if mp else "-", pos);
+        print("pos", *pos);
 
         value: child.dtype = sarrus_column_auto(child);
+        print("+1" if mp else "-1", end=" * ");
+        print(value, end=" = ");
+
         if not mp: value *= -1;
         temp[row][column] = value;
 
@@ -67,4 +69,4 @@ def cofactor_minor (array: np.array):
 
 def adjoint_matrix (array: np.array):
 
-    return rotate_pos(cofactor_minor(array));
+    return transpose(cofactor_minor(array));
